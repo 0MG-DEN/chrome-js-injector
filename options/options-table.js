@@ -1,3 +1,5 @@
+import OptionsHelper from './options-helper.js';
+
 const saveOptions = async function () {
   const table = document.getElementById("options-table");
   const options = {};

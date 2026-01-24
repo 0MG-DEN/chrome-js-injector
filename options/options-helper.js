@@ -1,4 +1,4 @@
-class OptionsHelper {
+export default class OptionsHelper {
   static async #get() {
     const value = await chrome.storage.local.get({ injectionOptions: {} });
     return value.injectionOptions;
