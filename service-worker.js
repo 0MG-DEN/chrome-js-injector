@@ -1,4 +1,4 @@
-import OptionsHelper from './options/options-helper.js';
+import OptionsHelper from "./options/options-helper.js";
 
 const processMessage = async (message, sender, sendResponse) => {
   if (message !== "inject-scripts")
@@ -10,8 +10,8 @@ const processMessage = async (message, sender, sendResponse) => {
     return;
 
   await chrome.scripting.executeScript({
-    target : { tabId: sender.tab.id },
-    files : [...new Set(files)] // Uniquify.
+    target: { tabId: sender.tab.id },
+    files: [...new Set(files)] // Uniquify.
   });
 
   sendResponse({ injectedScripts: files });

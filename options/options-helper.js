@@ -9,9 +9,9 @@ export default class OptionsHelper {
     return chrome.storage.local.set(value);
   }
 
-  static async getScripts(host) {
+  static async getScripts(origin) {
     const options = await OptionsHelper.#get();
-    return options[host] ?? [];
+    return options[origin] ?? [];
   }
 
   static async getAllScripts() {
