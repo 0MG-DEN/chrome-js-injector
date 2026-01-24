@@ -2,7 +2,7 @@ const saveOptions = async function () {
   const table = document.getElementById("options-table");
   const options = {};
 
-  for (let row of table.tBodies[0].rows) {
+  for (const row of table.tBodies[0].rows) {
     const host = row.querySelector(".txt-host")?.value;
     const file = row.querySelector(".txt-file")?.value;
     if (host && file) {
@@ -20,8 +20,8 @@ const populateTable = async function () {
 
   let lastRow = null;
 
-  for (let host in options) {
-    for (let file of options[host]) {
+  for (const host in options) {
+    for (const file of options[host]) {
       const row = lastRow ? copyRow.bind(lastRow)() : table.tBodies[0].rows[0];
       row.querySelector(".txt-host").value = host;
       row.querySelector(".txt-file").value = file;

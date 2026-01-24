@@ -4,7 +4,7 @@
   const host = document.location.host;
   const files = await OptionsHelper.getScripts(host);
 
-  for (let file of files) {
+  for (const file of files) {
     const script = document.createElement("script");
     script.type = "application/javascript";
     script.src = chrome.runtime.getURL(file);
