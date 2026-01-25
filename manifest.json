@@ -10,7 +10,7 @@
     "open_in_tab": false
   },
   "action": {
-    "default_popup": "menu/menu.html"
+    "default_popup": "popup/popup.html"
   },
   "background": {
     "service_worker": "service-worker.js",

@@ -22,16 +22,13 @@ const populateTable = async function () {
   const table = document.getElementById("options-table");
   const options = await OptionsHelper.getAll();
 
-  let lastRow = null;
-
   for (const origin in options) {
     for (const action in options[origin]) {
       for (const script of options[origin][action]) {
-        const row = lastRow ? copyRow.bind(lastRow)() : table.tBodies[0].rows[0];
+        var row = row ? copyRow.bind(row)() : table.tBodies[0].rows[0];
         row.querySelector(".txt-origin").value = origin;
         row.querySelector(".txt-script").value = script;
         row.querySelector(".txt-action").value = action;
-        lastRow = row;
       }
     }
   }
