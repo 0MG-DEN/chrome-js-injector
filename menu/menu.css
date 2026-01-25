@@ -1,0 +1,10 @@
+.btn-input {
+  display: block;
+  margin: 0.5rem;
+  white-space: nowrap;
+}
+
+.txt-label {
+  font-family: monospace;
+  white-space: nowrap;
+}
