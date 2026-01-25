@@ -7,27 +7,32 @@ const saveOptions = async function () {
   for (const row of table.tBodies[0].rows) {
     const origin = row.querySelector(".txt-origin")?.value;
     const script = row.querySelector(".txt-script")?.value;
+    const action = row.querySelector(".txt-action")?.value;
     if (origin && script) {
-      options[origin] ??= [];
-      options[origin].push(script);
+      options[origin] ??= {};
+      options[origin][action ?? ""] ??= [];
+      options[origin][action ?? ""].push(script);
     }
   }
 
-  await OptionsHelper.setScripts(options);
+  await OptionsHelper.set(options);
 }
 
 const populateTable = async function () {
   const table = document.getElementById("options-table");
-  const options = await OptionsHelper.getAllScripts();
+  const options = await OptionsHelper.getAll();
 
   let lastRow = null;
 
   for (const origin in options) {
-    for (const script of options[origin]) {
-      const row = lastRow ? copyRow.bind(lastRow)() : table.tBodies[0].rows[0];
-      row.querySelector(".txt-origin").value = origin;
-      row.querySelector(".txt-script").value = script;
-      lastRow = row;
+    for (const action in options[origin]) {
+      for (const script of options[origin][action]) {
+        const row = lastRow ? copyRow.bind(lastRow)() : table.tBodies[0].rows[0];
+        row.querySelector(".txt-origin").value = origin;
+        row.querySelector(".txt-script").value = script;
+        row.querySelector(".txt-action").value = action;
+        lastRow = row;
+      }
     }
   }
 }

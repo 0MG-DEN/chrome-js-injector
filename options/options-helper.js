@@ -11,14 +11,20 @@ export default class OptionsHelper {
 
   static async getScripts(origin) {
     const options = await OptionsHelper.#get();
-    return options[origin] ?? [];
+    return options[origin]?.[""] ?? [];
   }
 
-  static async getAllScripts() {
+  static async getActions(origin) {
+    const options = await OptionsHelper.#get();
+    delete options[origin]?.[""]; // Delete default scripts.
+    return options[origin] ?? {};
+  }
+
+  static async getAll() {
     return OptionsHelper.#get();
   }
 
-  static async setScripts(options) {
+  static async set(options) {
     return OptionsHelper.#set(options);
   }
 }
