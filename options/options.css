@@ -2,12 +2,11 @@ body {
   font-family: Calibri, sans-serif;
 }
 
-button, span {
+button, input {
   font-family: inherit;
   white-space: nowrap;
 }
 
-button {
-  display: block;
-  margin: 0.5rem;
+#saved-changes {
+  display: none;
 }

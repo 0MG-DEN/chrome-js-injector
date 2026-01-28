@@ -2,6 +2,7 @@ import OptionsHelper from "./options-helper.js";
 
 const saveOptions = async function () {
   const table = document.getElementById("options-table");
+  const label = document.getElementById("saved-changes");
   const options = {};
 
   for (const row of table.tBodies[0].rows) {
@@ -16,6 +17,9 @@ const saveOptions = async function () {
   }
 
   await OptionsHelper.set(options);
+
+  setTimeout(() => label.style.display = "unset", 1);
+  setTimeout(() => label.style.display = "none", 1000);
 }
 
 const populateTable = async function () {
