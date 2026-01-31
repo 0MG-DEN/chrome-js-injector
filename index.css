@@ -1,3 +1,24 @@
+body {
+  background: linear-gradient(lightgrey, white, grey);
+  display: grid;
+  grid-template-columns: 10% minmax(20rem, 80%) 10%;
+  grid-template-rows: minmax(max-content, 20%) max-content 20%;
+}
+
+#intro {
+  align-self: end;
+  font-family: Calibri, sans-serif;
+  font-size: large;
+  font-weight: bold;
+  grid-column: 2;
+  text-align: center;
+}
+
 #text {
-  font-family: monospace;
+  background: white;
+  border: solid 0.1rem black;
+  font-style: oblique;
+  grid-column: 2;
+  grid-row: 2;
+  padding: 1rem;
 }
