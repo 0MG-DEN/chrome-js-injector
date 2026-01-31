@@ -3,6 +3,7 @@
   "name": "JavaScript Injector",
   "description": "Inject user-defined scripts based on a site origin.",
   "version": "1.1.0",
+  "minimum_chrome_version": "88",
   "permissions": [ "scripting", "storage" ],
   "host_permissions": [ "https://*/*" ],
   "options_ui": {
