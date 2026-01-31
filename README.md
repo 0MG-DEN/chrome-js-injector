@@ -19,6 +19,7 @@ This extension allows you to inject custom scripts into websites specified in th
 # Testing the Extension
 
 By default, the release includes a `test-alert.js` script file. To see a demonstration:
-1. In the extension options, enter `https://www.google.com` in the **Origin** column and `/scripts/test-alert.js` in the **Script** column.
+1. In the extension options, enter `https://0mg-den.github.io` in the **Origin** column and `/scripts/test-alert.js` in the **Script** column.
 2. Click **Save Changes** at the top.
-3. Open the [Google homepage](https://www.google.com/). An alert should appear, confirming the script has been injected.
+3. Open the [test page](https://0mg-den.github.io/chrome-js-injector/). An alert should appear, confirming the script has been injected.
+4. (Optional) Try to solve the puzzle!
