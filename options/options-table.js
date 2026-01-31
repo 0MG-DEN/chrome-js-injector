@@ -1,31 +1,39 @@
+import OptionsHelper from "./options-helper.js";
+
 const saveOptions = async function () {
   const table = document.getElementById("options-table");
+  const label = document.getElementById("saved-changes");
   const options = {};
 
-  for (let row of table.tBodies[0].rows) {
-    const host = row.querySelector(".txt-host")?.value;
-    const file = row.querySelector(".txt-file")?.value;
-    if (host && file) {
-      options[host] ??= [];
-      options[host].push(file);
+  for (const row of table.tBodies[0].rows) {
+    const origin = row.querySelector(".txt-origin")?.value;
+    const script = row.querySelector(".txt-script")?.value;
+    const action = row.querySelector(".txt-action")?.value;
+    if (origin && script) {
+      options[origin] ??= {};
+      options[origin][action ?? ""] ??= [];
+      options[origin][action ?? ""].push(script);
     }
   }
 
-  await OptionsHelper.setScripts(options);
+  await OptionsHelper.set(options);
+
+  setTimeout(() => label.style.display = "unset", 1);
+  setTimeout(() => label.style.display = "none", 1000);
 }
 
 const populateTable = async function () {
   const table = document.getElementById("options-table");
-  const options = await OptionsHelper.getAllScripts();
+  const options = await OptionsHelper.getAll();
 
-  let lastRow = null;
-
-  for (let host in options) {
-    for (let file of options[host]) {
-      const row = lastRow ? copyRow.bind(lastRow)() : table.tBodies[0].rows[0];
-      row.querySelector(".txt-host").value = host;
-      row.querySelector(".txt-file").value = file;
-      lastRow = row;
+  for (const origin in options) {
+    for (const action in options[origin]) {
+      for (const script of options[origin][action]) {
+        var row = row ? copyRow.bind(row)() : table.tBodies[0].rows[0];
+        row.querySelector(".txt-origin").value = origin;
+        row.querySelector(".txt-script").value = script;
+        row.querySelector(".txt-action").value = action;
+      }
     }
   }
 }

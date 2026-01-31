@@ -1,34 +1,25 @@
 {
   "manifest_version": 3,
   "name": "JavaScript Injector",
-  "description": "Injects user-defined scripts based on a site host.",
-  "version": "1.0.0",
-  "permissions": [
-    "storage"
-  ],
+  "description": "Inject user-defined scripts based on a site origin.",
+  "version": "1.1.0",
+  "permissions": [ "scripting", "storage" ],
+  "host_permissions": [ "https://*/*" ],
   "options_ui": {
-    "page": "/options/options.html",
+    "page": "options/options.html",
     "open_in_tab": false
   },
-  "web_accessible_resources": [
-    {
-      "matches": [
-        "https://*/*"
-      ],
-      "resources": [
-        "/scripts/*"
-      ]
-    }
-  ],
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
-      "matches": [
-        "https://*/*"
-      ],
-      "js": [
-        "/options/options-helper.js",
-        "/content-script.js"
-      ],
+      "matches": [ "https://*/*" ],
+      "js": [ "content-script.js" ],
       "run_at": "document_idle"
     }
   ]

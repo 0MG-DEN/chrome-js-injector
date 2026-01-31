@@ -2,31 +2,36 @@
 <html>
   <head>
     <title>Chrome JavaScript Injector</title>
-    <script src="options.js" defer></script>
-    <script src="options-helper.js"></script>
-    <script src="options-table.js" defer></script>
+    <link href="options.css" rel="stylesheet"></link>
+    <script src="options-table.js" type="module"></script>
   </head>
   <body>
     <p>
     <button id="save-changes">Save Changes</button>
+    <span id="saved-changes">&nbsp;Saved.</span>
     <p>
     <table id="options-table">
       <thead>
         <tr>
-          <th>Host</th>
+          <th>Origin</th>
           <th>Script</th>
-          <th></th>
-          <th></th>
+          <th>Action</th>
+          <th colspan="2">Move</th>
+          <th colspan="2"></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><input type="text" class="txt-host"></input></td>
-          <td><input type="text" class="txt-file"></input></td>
-          <td><button class="btn-copy">Copy</button></td>
-          <td><button class="btn-delete">Delete</button></td>
+          <td><input type="text" class="txt-origin" title="Origin URL for script (e.g., https://www.google.com)"></input></td>
+          <td><input type="text" class="txt-script" title="Script path (e.g., /scripts/test-alert.js)"></input></td>
+          <td><input type="text" class="txt-action" title="Action name for popup, leave empty to run on page load"></input></td>
+          <td><button class="btn-move-up" title="Move up (executes earlier)">&lt;</button></td>
+          <td><button class="btn-move-down" title="Move down (executes later)">&gt;</button></td>
+          <td><button class="btn-copy" title="Copy row">Copy</button></td>
+          <td><button class="btn-delete" title="Delete row">Delete</button></td>
         </tr>
       </tbody>
     </table>
+    <script src="options.js"></script>
   </body>
 </html>

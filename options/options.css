@@ -1,0 +1,12 @@
+body {
+  font-family: Calibri, sans-serif;
+}
+
+button, input {
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+#saved-changes {
+  display: none;
+}
