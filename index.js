@@ -1,0 +1,1 @@
+text.textContent = "Hello, World!";
