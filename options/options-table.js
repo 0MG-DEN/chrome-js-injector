@@ -1,5 +1,29 @@
 import OptionsHelper from "./options-helper.js";
 
+const handleFile = async function () {
+  const file = this.files[0];
+  const text = await file.text();
+  const options = await OptionsHelper.parse(text);
+  await populateTable(options);
+}
+
+const importFile = async function () {
+  const input = document.getElementById("file-input");
+  input.click();
+}
+
+const exportFile = async function () {
+  const json = await OptionsHelper.getAsJson();
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.download = "injection-options.json";
+  a.target = "_blank";
+  a.href = url;
+  a.click();
+}
+
 const saveOptions = async function () {
   const table = document.getElementById("options-table");
   const label = document.getElementById("saved-changes");
@@ -22,9 +46,12 @@ const saveOptions = async function () {
   setTimeout(() => label.style.display = "none", 1000);
 }
 
-const populateTable = async function () {
+const populateTable = async function (options) {
+  options = options || await OptionsHelper.getAsObject();
+
   const table = document.getElementById("options-table");
-  const options = await OptionsHelper.getAll();
+  const rows = table.querySelectorAll("tr:not(:first-child)");
+  rows.forEach(row => row.remove());
 
   for (const origin in options) {
     for (const action in options[origin]) {
@@ -38,6 +65,9 @@ const populateTable = async function () {
   }
 }
 
+document.getElementById("file-input").addEventListener("change", handleFile, false);
+document.getElementById("import-file").addEventListener("click", importFile);
+document.getElementById("export-file").addEventListener("click", exportFile);
 document.getElementById("save-changes").addEventListener("click", saveOptions);
 
 populateTable();
