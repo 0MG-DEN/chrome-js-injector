@@ -9,7 +9,8 @@ const getActiveTab = async function () {
 const execute = async function (tabId, scripts) {
   const options = {
     target: { tabId: tabId },
-    files: [...new Set(scripts)] // Uniquify.
+    files: [...new Set(scripts)], // Uniquify.
+    world: "MAIN"
   };
   return chrome.scripting.executeScript(options);
 }
