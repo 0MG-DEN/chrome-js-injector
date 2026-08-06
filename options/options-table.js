@@ -1,9 +1,9 @@
 import OptionsHelper from "./options-helper.js";
 
 const handleFile = async function () {
-  const file = this.files[0];
-  const text = await file.text();
-  const options = await OptionsHelper.parse(text);
+  const [file] = this.files;
+  const content = await file.text();
+  const options = await OptionsHelper.parse(content);
   await populateTable(options);
 }
 
@@ -15,13 +15,9 @@ const importFile = async function () {
 const exportFile = async function () {
   const json = await OptionsHelper.getAsJson();
   const blob = new Blob([json], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.download = "injection-options.json";
-  a.target = "_blank";
-  a.href = url;
-  a.click();
+  const link = document.getElementById("file-link");
+  link.href = URL.createObjectURL(blob);
+  link.click();
 }
 
 const saveOptions = async function () {
@@ -65,7 +61,7 @@ const populateTable = async function (options) {
   }
 }
 
-document.getElementById("file-input").addEventListener("change", handleFile, false);
+document.getElementById("file-input").addEventListener("change", handleFile);
 document.getElementById("import-file").addEventListener("click", importFile);
 document.getElementById("export-file").addEventListener("click", exportFile);
 document.getElementById("save-changes").addEventListener("click", saveOptions);

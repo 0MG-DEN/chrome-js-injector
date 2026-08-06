@@ -1,9 +1,9 @@
 export default class OptionsHelper {
-  static async #handleVersion(options) {
+  static async #update(options) { // Update possibly outdated options to valid state.
     const version = options?.meta?.version;
     if (!version)
       throw new Error("Invalid options: no version found");
-    if (version > "07EA031D-1.0") // Update this version.
+    if (version > "20260323001") // Update this version.
       throw new Error("Invalid options: future versions are not supported");
     // Add previous versions handling here.
     return options;
@@ -12,12 +12,12 @@ export default class OptionsHelper {
   static async #get() {
     const value = await chrome.storage.local.get({ injectionOptions: {} });
     const options = value.injectionOptions;
-    options.meta = options.meta || { version: "07EA031D-1.0" }; // Keep this version.
-    return await OptionsHelper.#handleVersion(options);
+    options.meta = options.meta || { version: "20260323001" }; // Keep this version.
+    return await OptionsHelper.#update(options);
   }
 
   static async #set(options) {
-    options.meta = { version: "07EA031D-1.0" }; // Update this version.
+    options.meta = { version: "20260323001" }; // Update this version.
     const value = { injectionOptions: options };
     return chrome.storage.local.set(value);
   }
@@ -52,7 +52,7 @@ export default class OptionsHelper {
 
   static async parse(text) {
     const parsed = JSON.parse(text); // TODO: Validate.
-    const options = await OptionsHelper.#handleVersion(parsed);
+    const options = await OptionsHelper.#update(parsed);
     delete options.meta;
     return options;
   }
