@@ -1,18 +1,18 @@
 import OptionsHelper from "./options-helper.js";
 
-const handleFile = async function () {
+const handleFile = async function() {
   const [file] = this.files;
   const content = await file.text();
   const options = await OptionsHelper.parse(content);
   await populateTable(options);
 }
 
-const importFile = async function () {
+const importFile = async function() {
   const input = document.getElementById("file-input");
   input.click();
 }
 
-const exportFile = async function () {
+const exportFile = async function() {
   const json = await OptionsHelper.getAsJson();
   const blob = new Blob([json], { type: "application/json" });
   const link = document.getElementById("file-link");
@@ -20,7 +20,7 @@ const exportFile = async function () {
   link.click();
 }
 
-const saveOptions = async function () {
+const saveOptions = async function() {
   const table = document.getElementById("options-table");
   const label = document.getElementById("saved-changes");
   const options = {};
@@ -42,7 +42,7 @@ const saveOptions = async function () {
   setTimeout(() => label.style.display = "none", 1000);
 }
 
-const populateTable = async function (options) {
+const populateTable = async function(options) {
   options = options || await OptionsHelper.getAsObject();
 
   const table = document.getElementById("options-table");

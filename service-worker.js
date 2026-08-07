@@ -1,12 +1,12 @@
 import OptionsHelper from "./options/options-helper.js";
 
-const getActiveTab = async function () {
+const getActiveTab = async function() {
   const query = { active: true, lastFocusedWindow: true };
   const [tab] = await chrome.tabs.query(query);
   return tab;
 }
 
-const execute = async function (tabId, scripts) {
+const execute = async function(tabId, scripts) {
   const options = {
     target: { tabId: tabId },
     files: [...new Set(scripts)], // Uniquify.
@@ -15,7 +15,7 @@ const execute = async function (tabId, scripts) {
   return chrome.scripting.executeScript(options);
 }
 
-const injectScripts = async function (message, sender, sendResponse) {
+const injectScripts = async function(message, sender, sendResponse) {
   const scripts = await OptionsHelper.getScripts(sender.origin);
   if (scripts.length > 0) {
     await execute(sender.tab.id, scripts);
@@ -23,7 +23,7 @@ const injectScripts = async function (message, sender, sendResponse) {
   }
 }
 
-const getActions = async function (message, sender, sendResponse) {
+const getActions = async function(message, sender, sendResponse) {
   const tab = await getActiveTab();
   if (tab?.url) {
     const origin = new URL(tab.url).origin;
@@ -32,7 +32,7 @@ const getActions = async function (message, sender, sendResponse) {
   }
 }
 
-const runAction = async function (message, sender, sendResponse) {
+const runAction = async function(message, sender, sendResponse) {
   const tab = await getActiveTab();
   if (tab?.url && tab.id) {
     const origin = new URL(tab.url).origin;
