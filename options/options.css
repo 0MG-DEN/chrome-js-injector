@@ -7,6 +7,6 @@ button, input {
   white-space: nowrap;
 }
 
-#saved-changes {
+#saved-changes, #file-input {
   display: none;
 }
