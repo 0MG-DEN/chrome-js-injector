@@ -1,9 +1,11 @@
 export default class OptionsHelper {
+	static #currentVersion = "20260323001";
+
 	static async #update(options) { // Update possibly outdated options to valid state.
 		const version = options?.meta?.version;
 		if (!version)
 			throw new Error("Invalid options: no version found");
-		if (version > "20260323001") // Update this version.
+		if (version > OptionsHelper.#currentVersion)
 			throw new Error("Invalid options: future versions are not supported");
 		// Add previous versions handling here.
 		return options;
@@ -17,7 +19,7 @@ export default class OptionsHelper {
 	}
 
 	static async #set(options) {
-		options.meta = { version: "20260323001" }; // Update this version.
+		options.meta = { version: OptionsHelper.#currentVersion };
 		const value = { injectionOptions: options };
 		return chrome.storage.local.set(value);
 	}

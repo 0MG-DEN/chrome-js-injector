@@ -44,13 +44,18 @@ const runAction = async function(message, sender, sendResponse) {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	if (message.type === "inject-scripts")
+	// Returning true allows calling sendResponse asynchronously,
+	// i.e. after returning from this event listener.
+	if (message.type === "inject-scripts") {
 		injectScripts(message, sender, sendResponse);
-	if (message.type === "get-actions")
+		return true;
+	} else if (message.type === "get-actions") {
 		getActions(message, sender, sendResponse);
-	if (message.type === "run-action")
+		return true;
+	} else if (message.type === "run-action") {
 		runAction(message, sender, sendResponse);
-	return true; // Allows calling sendResponse asynchronously (after returning from this event listener).
+		return true;
+	}
 });
 
 chrome.runtime.onInstalled.addListener((details) => {
