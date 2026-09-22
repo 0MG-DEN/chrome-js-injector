@@ -1,9 +1,9 @@
-import OptionsHelper from "./options-helper.js";
+import StorageHelper from "../storage-helper.js";
 
 const handleFile = async function() {
 	const [file] = this.files;
-	const content = await file.text();
-	const options = await OptionsHelper.parse(content);
+	const content = await reportErrors(file.text());
+	const options = await reportErrors(StorageHelper.parse(content));
 	await populateTable(options);
 }
 
@@ -13,7 +13,7 @@ const importFile = async function() {
 }
 
 const exportFile = async function() {
-	const json = await OptionsHelper.getAsJson();
+	const json = await reportErrors(StorageHelper.getAsJson());
 	const blob = new Blob([json], { type: "application/json" });
 	const link = document.getElementById("file-link");
 	link.href = URL.createObjectURL(blob);
@@ -36,14 +36,14 @@ const saveOptions = async function() {
 		}
 	}
 
-	await OptionsHelper.set(options);
+	await reportErrors(StorageHelper.set(options));
 
 	setTimeout(() => label.style.display = "unset", 1);
 	setTimeout(() => label.style.display = null, 1000);
 }
 
 const populateTable = async function(options) {
-	options = options || await OptionsHelper.getAsObject();
+	options = options || await reportErrors(StorageHelper.getAsObject());
 
 	const table = document.getElementById("options-table");
 	const rows = table.querySelectorAll("tr:not(:first-child)");

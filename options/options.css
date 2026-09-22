@@ -10,3 +10,8 @@ button, input {
 #saved-changes, #file-input {
 	display: none;
 }
+
+#error-report {
+	color: red;
+	display: none;
+}

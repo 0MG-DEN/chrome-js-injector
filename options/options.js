@@ -43,4 +43,20 @@ const assignEvents = function(root) {
 		.forEach(btn => btn.onclick = removeRow);
 }
 
+const reportErrors = async function(promise) {
+	const report = document.getElementById("error-report");
+	try {
+		report.style.display = null;
+		report.innerText = "";
+		return await promise;
+	} catch (e) {
+		report.style.display = "unset";
+		report.innerText =
+			e instanceof Error  ? e.message :
+			e instanceof String ? e :
+			e.toString();
+		throw e;
+	}
+}
+
 assignEvents(document);

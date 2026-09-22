@@ -17,7 +17,7 @@ const populatePopup = async function() {
 	for (const action of await getActions()) {
 		var button = button ? copyButton(button) : document.querySelector(".btn-input");
 		button.textContent = action;
-		button.addEventListener("click", () => runAction(action));
+		button.addEventListener("click", async () => runAction(action));
 	}
 }
 
